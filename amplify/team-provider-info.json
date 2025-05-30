@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-awsgpsreact-dev-776a7-authRole",
+      "UnauthRoleArn": "arn:aws:iam::660050638033:role/amplify-awsgpsreact-dev-776a7-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::660050638033:role/amplify-awsgpsreact-dev-776a7-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-awsgpsreact-dev-776a7-deployment",
+      "UnauthRoleName": "amplify-awsgpsreact-dev-776a7-unauthRole",
+      "StackName": "amplify-awsgpsreact-dev-776a7",
+      "StackId": "arn:aws:cloudformation:us-east-1:660050638033:stack/amplify-awsgpsreact-dev-776a7/76d96fd0-3c5a-11f0-8250-12e618ec57ab",
+      "AmplifyAppId": "d2moqf9nsmm0h3"
+    },
+    "categories": {
+      "auth": {
+        "awsgpsreactad50ae0d": {}
+      }
+    }
+  }
+}
