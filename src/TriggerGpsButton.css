@@ -1,0 +1,33 @@
+
+.styled-button {
+    background: #eee;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 25px;
+    color: #313131;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    max-width: 300px;
+    margin: 0 auto;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .styled-button::after {
+    content: "\f0da";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .styled-button:hover {
+    background: #313131;
+    color: #fff;
+  }
+  
