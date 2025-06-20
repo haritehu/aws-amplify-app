@@ -10,7 +10,7 @@ function Startpage() {
     <div className="p-6">
       <h1>ようこそ！</h1>
       <button
-        class="styled-button"
+        className="styled-button"
         onClick={() => navigate('/map')}
       >
         マップへ進む

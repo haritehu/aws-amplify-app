@@ -1,21 +1,34 @@
-// src/components/TriggerGpsButton.jsx
 import React from 'react';
-
 
 function TriggerGpsButton() {
   const handleClick = async () => {
-    const res = await fetch("https://xhfskisa04.execute-api.us-east-1.amazonaws.com/start", {
-      method: "POST",
-    });
+    try {
+      const res = await fetch("https://xhfskisa04.execute-api.us-east-1.amazonaws.com/start", {
+        method: "POST",
+      });
 
-    const result = await res.json();
-    alert(result.message);
+      if (!res.ok) {
+        throw new Error(`サーバーエラー: ${res.status}`);
+      }
+      
+      const result = await res.json();
+      
+      // bodyは文字列なので、JSON.parse()でオブジェクトに変換する
+      const bodyData = JSON.parse(result.body);
+
+      // 変換したオブジェクトからmessageプロパティを取得
+      alert(bodyData.message);
+
+    } catch (error) {
+      console.error("GPS測定開始リクエストに失敗しました:", error);
+      alert(`エラーが発生しました: ${error.message}`);
+    }
   };
 
   return (
     <button
       onClick={handleClick}
-      class="styled-button"
+      className="styled-button" 
     >
       GPS測定を開始する
     </button>

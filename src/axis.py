@@ -6,7 +6,7 @@ import uuid
 from time import sleep
 import requests
 # 初期設定
-ser = serial.Serial('/dev/ttyACM1', 115200, timeout=1)
+ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 
 url = "https://e4jbg4i3ve.execute-api.us-east-1.amazonaws.com/test"
 PARAMS = {
@@ -44,7 +44,10 @@ def json_load(msg):
     # latitude/longitude を安全に取得
     latitude = getattr(msg, 'latitude', None)
     longitude = getattr(msg, 'longitude', None)
-
+    if latitude == 0 or longitude == 0:
+         print(latitude,longitude)
+         print("Gpsがまだ取得されていません")
+         return 0
     new_axis_data = {
         "id": id,
         "time": now,
@@ -66,10 +69,11 @@ def timer(time):
 def main():
       while(True):
         try:
-            timer(5)
+            timer(60)
             msg = axis_load()
-            json_load(msg)
-            send_gps()
+            flag = json_load(msg)
+            if flag != 0:
+                send_gps()
         except KeyboardInterrupt:
             print("\nCtrl+C が押されました。処理を中断します。")
             return 0
