@@ -8,7 +8,7 @@ function Startpage() {
 
   return (
     <div className="p-6">
-      <h1>ようこそ！</h1>
+      <h1>ブルーギル産卵床マッピング</h1>
       <button
         className="styled-button"
         onClick={() => navigate('/map')}
