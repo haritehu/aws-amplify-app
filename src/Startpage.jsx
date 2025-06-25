@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import './Startpage.css';
 import TriggerGpsButton from './TriggerGpsButton';
+import TriggerGpsStopButton from './TriggerGpsStopButton';
 
 function Startpage() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function Startpage() {
         マップへ進む
       </button>
       <TriggerGpsButton/>
+      <TriggerGpsStopButton/>
     </div>
   );
 }

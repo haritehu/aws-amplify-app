@@ -20,7 +20,7 @@ const LoginPage = () => {
   // 認証が済んでいないユーザーには、Authenticatorコンポーネント（ログインフォーム）を表示する
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <Authenticator />
+      <Authenticator hideSignUp={true} />
     </div>
   );
 };
