@@ -1,10 +1,21 @@
 import React from 'react';
 
-function TriggerGpsButton() {
+function TriggerGpsButton({selectedoption}) {
   const handleClick = async () => {
     try {
+      if(!selectedoption){
+        alert("選択してください！")
+        return
+      }
       const res = await fetch("https://xhfskisa04.execute-api.us-east-1.amazonaws.com/start", {
         method: "POST",
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+            value : selectedoption.value,
+            lavel : selectedoption.lavel
+        })
       });
 
       if (!res.ok) {

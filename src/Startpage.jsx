@@ -18,6 +18,12 @@ function Startpage() {
       </button>
       <TriggerGpsButton/>
       <TriggerGpsStopButton/>
+      <button 
+        className="styled-button"
+        onClick={() => navigate('/selectstate')}
+      >
+        GPsの測定を開始する
+      </button>
     </div>
   );
 }

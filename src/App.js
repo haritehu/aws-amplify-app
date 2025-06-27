@@ -6,6 +6,7 @@ import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import MapComponent from './MapComponent';
 import Startpage from './Startpage';
 import LoginPage from './LoginPage';
+import GpsStartPage from './GpsStartPage';
 const awsExports = {
   "aws_project_region": "us-east-1", // あなたのリージョン
   "aws_cognito_region": "us-east-1", // あなたのリージョン
@@ -35,8 +36,6 @@ function App() {
     <Authenticator.Provider>
       <BrowserRouter>
         <Routes>
-          {/* ★★★ ここが修正点 ★★★ */}
-          {/* スタートページもProtectedRouteで囲んで保護する */}
           <Route 
             path="/" 
             element={
@@ -57,6 +56,14 @@ function App() {
                 <MapComponent />
               </ProtectedRoute>
             } 
+          />
+          <Route
+            path="/selectstate"
+            element={
+              <ProtectedRoute>
+                <GpsStartPage/>
+              </ProtectedRoute>
+            }
           />
         </Routes>
       </BrowserRouter>

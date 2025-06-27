@@ -42,8 +42,6 @@ def on_message(client, userdata, msg):
         try:
             print("axis.py をバックグラウンドで停止します...")
             process.terminate()
-        except FileNotFoundError:
-            print("エラー: 'python3' コマンドが見つかりません。")
         except Exception as e:
             print(f"axis.py の起動中にエラーが発生しました: {e}")
 
