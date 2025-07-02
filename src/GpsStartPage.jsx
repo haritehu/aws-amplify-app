@@ -1,7 +1,9 @@
+// GpsStartPage.jsx
+
 import React,{useState} from 'react';
 import Select from 'react-select';
 import TriggerGpsButton from './TriggerGpsButton';
-// 選択肢のデータ（変更なし）
+
 const stateOptions = [
     { value: 'red', label: '駆除完了' },
     { value: 'blue', label: '産卵床発見' },
@@ -9,23 +11,28 @@ const stateOptions = [
 ];
 
 const GpsStartPage = () => {
-    const [selectedOptions,setselectOptions] = useState(null)
-    const handlechange = (option) =>{
-        setselectOptions(option)
-    }// return文の中で、表示したいコンポーネントを返す
+    // 関数名や変数名も一般的なキャメルケースに修正
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    const handleChange = (option) => {
+        setSelectedOption(option);
+    };
+
     return (
         <div>
             <h1>ステータスを選択してください</h1>
-            <Select 
-                options={stateOptions} 
-                onChange={handlechange}
-                value={selectedOptions}
+            <Select
+                options={stateOptions}
+                onChange={handleChange}
+                value={selectedOption}
             />
-            {selectedOptions &&(
-                <p>value:{selectedOptions.value}</p>
-            )
-            }
-            <TriggerGpsButton selectedoption={selectedOptions}/>
+            {selectedOption && (
+                <p>value: {selectedOption.value}</p>
+            )}
+
+            {/* ▼▼▼ 修正点 ▼▼▼ */}
+            {/* props名を selectedOption に統一 */}
+            <TriggerGpsButton selectedOption={selectedOption} />
         </div>
     );
 };

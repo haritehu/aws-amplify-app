@@ -1,20 +1,22 @@
 import React from 'react';
 
-function TriggerGpsButton({selectedoption}) {
+function TriggerGpsButton({ selectedOption }) {
   const handleClick = async () => {
     try {
-      if(!selectedoption){
-        alert("選択してください！")
-        return
+      if (!selectedOption) {
+        alert("選択してください！");
+        return;
       }
+
       const res = await fetch("https://xhfskisa04.execute-api.us-east-1.amazonaws.com/start", {
         method: "POST",
-        headers:{
-          'Content-Type':'application/json'
+        headers: {
+          'Content-Type': 'application/json'
         },
-        body:JSON.stringify({
-            value : selectedoption.value,
-            lavel : selectedoption.lavel
+        body: JSON.stringify({
+            value: selectedOption.value,
+            label: selectedOption.label,
+            message: "接続完了"
         })
       });
 
@@ -22,17 +24,24 @@ function TriggerGpsButton({selectedoption}) {
         throw new Error(`サーバーエラー: ${res.status}`);
       }
       
+      // Lambdaから返ってきたJSONをそのまま受け取る
       const result = await res.json();
-      
-      // bodyは文字列なので、JSON.parse()でオブジェクトに変換する
-      const bodyData = JSON.parse(result.body);
+      console.log('Response from Lambda:', result);
 
-      // 変換したオブジェクトからmessageプロパティを取得
-      alert(bodyData.message);
+      // ▼▼▼ ここからが重要な修正点 ▼▼▼
+      // resultオブジェクトに 'message' が存在するかチェックする
+      if (result.message) {
+        // 直接 result.message をアラートで表示
+        alert(result.message);
+      } else {
+        // 予期せぬ形式の応答が来た場合
+        throw new Error('Lambdaから予期せぬ形式の応答がありました。');
+      }
+      // ▲▲▲ ここまで ▲▲▲
 
     } catch (error) {
       console.error("GPS測定開始リクエストに失敗しました:", error);
-      alert(`エラーが発生しました: ${error.message}`);
+      alert(error.message);
     }
   };
 

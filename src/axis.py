@@ -5,6 +5,7 @@ from datetime import datetime
 import uuid
 from time import sleep
 import requests
+import sys
 # 初期設定
 ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 
@@ -14,8 +15,9 @@ PARAMS = {
     'key2' :'value2'
 }
 
+
 def send_gps():
-    with open('axis_data.json', 'r') as f:
+    with open('/home/ecoxile/Documents/pro/aws-gps-react/axis_data.json', 'r') as f:
         json_data = json.load(f)
 
     headers = {
@@ -37,7 +39,7 @@ def axis_load():
     return msg
 
 
-def json_load(msg):
+def json_load(msg,status):
     id = str(uuid.uuid4())
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -53,6 +55,7 @@ def json_load(msg):
         "time": now,
         "latitude": latitude,
         "longitude": longitude,
+        "status":status,
     }
 
     with open("axis_data.json", "w", encoding="utf-8") as f:
@@ -67,16 +70,21 @@ def timer(time):
         
 
 def main():
-      while(True):
         try:
-            timer(60)
-            msg = axis_load()
-            flag = json_load(msg)
-            if flag != 0:
-                send_gps()
-        except KeyboardInterrupt:
-            print("\nCtrl+C が押されました。処理を中断します。")
-            return 0
+            # sys.argv[0] はスクリプト名なので、最初の引数は[1]になる
+            status = sys.argv[1]
+        except IndexError:
+            # 引数が渡されなかった場合のデフォルト値（エラー処理）
+            print("エラー: ステータスが指定されていません。'default'を使用します。")
+            status = "default"
+
+        print(f"受け取ったステータス: {status}")
+     
+        msg = axis_load()
+        flag = json_load(msg,status)
+        if flag != 0:
+            send_gps()
+        return 0
 
 if __name__ == "__main__":
       main()
