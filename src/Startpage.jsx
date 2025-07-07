@@ -16,8 +16,6 @@ function Startpage() {
       >
         マップへ進む
       </button>
-      <TriggerGpsButton/>
-      <TriggerGpsStopButton/>
       <button 
         className="styled-button"
         onClick={() => navigate('/selectstate')}
