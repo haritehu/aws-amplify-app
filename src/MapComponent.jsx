@@ -55,7 +55,7 @@ const getIconByStatus = (status) => {
 
 const MapComponent = () => {
   const [data, setData] = useState([]);
-  const [center, setCenter] = useState([34.84, 136.58]); // デフォルトの中心地
+  const [center, setCenter] = useState([35.53, 136.19]); // デフォルトの中心地
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

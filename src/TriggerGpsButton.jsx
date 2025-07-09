@@ -50,7 +50,7 @@ function TriggerGpsButton({ selectedOption }) {
       onClick={handleClick}
       className="styled-button" 
     >
-      GPS測定を開始する
+      産卵床のピンを配置する
     </button>
   );
 }

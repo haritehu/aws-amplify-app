@@ -20,7 +20,7 @@ const GpsStartPage = () => {
 
     return (
         <div>
-            <h1>ステータスを選択してください</h1>
+            <h1><center>ステータスを選択してください</center></h1>
             <Select
                 options={stateOptions}
                 onChange={handleChange}
