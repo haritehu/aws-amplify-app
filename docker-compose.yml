@@ -1,0 +1,38 @@
+# version: '3.8' # この行はもう古いので不要です
+
+services:
+  # メッセージを受信待機するリスナーサービス
+  mqtt-listener:
+    build: .
+    # [1] OS起動時にコンテナを自動で再起動させる設定
+    restart: unless-stopped
+    # [2] コンテナに物理デバイスへのアクセス特権を与える設定 (重要)
+    privileged: true
+    # [3] ラズパイの物理USBポートをコンテナ内に引き込む設定 (最重要)
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    # [4] コンテナ内のユーザーにデバイスへのアクセス権を与える設定
+    group_add:
+      - "dialout"
+    # [5] ローカルのコードをコンテナに同期させる設定
+    volumes:
+      - ./src:/app
+
+  # MQTTブローカー
+  mqtt-broker:
+    image: eclipse-mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+
+  # RabbitMQ (この構成では現在使われていませんが、念のため残します)
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"

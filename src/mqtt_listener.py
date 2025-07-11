@@ -22,7 +22,7 @@ TOPIC_TO_SUBSCRIBE = {
 }
 # 起動するPythonスクリプトのフルパス
 # ご自身の環境に合わせてパスを修正してください
-AXIS_SCRIPT_PATH = "/home/ecoxile/Documents/pro/aws-gps-react/src/axis.py"
+AXIS_SCRIPT_PATH = os.path.join(os.path.dirname(__file__), 'axis.py')
 # --- 設定終わり ---
 
 # axis.pyのプロセスを格納するグローバル変数

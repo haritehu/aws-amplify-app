@@ -17,7 +17,7 @@ PARAMS = {
 
 
 def send_gps():
-    with open('/home/ecoxile/Documents/pro/aws-gps-react/axis_data.json', 'r') as f:
+    with open('axis_data.json', 'r') as f:
         json_data = json.load(f)
 
     headers = {

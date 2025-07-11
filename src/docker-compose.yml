@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # メッセージを送信するためのサービス (変更なし)
+  app:
+    build: .
+    command: python send_message.py
+    volumes:
+      - ./src:/app
+    depends_on:
+      - mqtt-broker
+
+  # メッセージを受信待機するリスナーサービス (✨ここを追加！)
+  mqtt-listener:
+    build: .
+    # コンテナ起動時に mqtt_listener.py を実行する
+    command: python mqtt_listener.py
+    # ホスト側のsrcディレクトリをコンテナの/appにマウント
+    volumes:
+      - ./src:/app
+    # コンテナを常時起動させておく
+    restart: always
+    # mqtt-brokerが起動してから開始する
+    depends_on:
+      - mqtt-broker
+
+  # MQTTブローカー (変更なし)
+  mqtt-broker:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+
+  # RabbitMQ (変更なし)
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
