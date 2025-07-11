@@ -17,6 +17,8 @@ services:
     # [5] ローカルのコードをコンテナに同期させる設定
     volumes:
       - ./src:/app
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
 
   # MQTTブローカー
   mqtt-broker:
